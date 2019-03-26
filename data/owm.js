@@ -1,5 +1,4 @@
 const axios = require("axios");
-const source = "OpenWeatherMap";
 const dateNow = new Date()
 dateNow.setHours(dateNow.getHours(), 0, 0, 000)
 
@@ -192,9 +191,9 @@ function date() {
   }
 }
 
-function analyzeData(newdata, newlat, newlon) {
+function analyzeData(newdata, newlat, newlon, id_source) {
   let dataNow = new Object();
-  dataNow.source = source;
+  dataNow.id_source = id_source;
   dataNow.lat = newlat;
   dataNow.lon = newlon;
   dataNow.date = date();
@@ -212,15 +211,13 @@ function analyzeData(newdata, newlat, newlon) {
   // dataNow.cloudness = cloudness(newdata.clouds.all);
   // dataNow.humidity = newdata.main.humidity;
 
-  // console.log(dataNow);
-
   return dataNow
 }
 
-function getforecast(newlat, newlon) {
+function getforecast(url_api, newlat, newlon, id_source) {
   return axios({
     method: "get",
-    url: "http://api.openweathermap.org/data/2.5/weather",
+    url: url_api, // "http://api.openweathermap.org/data/2.5/weather"
     headers: {
       "x-api-key": "a1cf5b1ea3d4bf31d2838ed521148428"
     },
@@ -233,8 +230,7 @@ function getforecast(newlat, newlon) {
     }
   })
     .then(res => {
-      // console.log(res.data);
-      return analyzeData(res.data, newlat, newlon);
+      return analyzeData(res.data, newlat, newlon, id_source);
     })
     .catch(err => console.log(err));
 }
