@@ -217,7 +217,7 @@ function analyzeData(newdata, newlat, newlon, id_source) {
 function getforecast(url_api, newlat, newlon, id_source) {
   return axios({
     method: "get",
-    url: url_api, // "http://api.openweathermap.org/data/2.5/weather"
+    url: url_api, // "https://api.openweathermap.org/data/2.5/weather"
     headers: {
       "x-api-key": "a1cf5b1ea3d4bf31d2838ed521148428"
     },
